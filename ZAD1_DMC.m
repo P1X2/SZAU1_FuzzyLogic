@@ -1,7 +1,7 @@
 function [E] = ZAD1_DMC(D, N, Nu, DZ, lambda, draw)
 
     % zmienne i macierze regulatora
-    [s, z] = z1_step(16, false);
+    [s, z] = ZAD1_odp_skokowa(18.2044, false);
     D = min(D, length(s));
     DZ = min(DZ, length(z));
     N = min(min(N,D),DZ);
@@ -50,19 +50,20 @@ function [E] = ZAD1_DMC(D, N, Nu, DZ, lambda, draw)
     % dane
     C1 = 0.95;
     C2 = 0.95;
-    a1 = 16;
-    a2 = 16;
-    n = 12100;
-    tau = 50;
-    U0 = 54;
-    D0 = 10;
-    Y0 = 16;
-    V1 = C1*Y0^2;
-    h1 = Y0;
-    V2 = V1;
+    a1 = 17;
+    a2 = 15;
+    n = 12000;
+    tau = 40;
+
+    U0 = 52;
+    D0 = 12;
+    Y0 = 18.2044;
+    V2 = C2*Y0^2;
+    h1 = 14.1730;
+    V1 = C1 * h1^2;
     start = 100;
-    dY = [start 34; start+3000 4.5; start+6000 24; start+9000 14];
-    dZ = [start+1500 15; start+4500 5; start+7500 12.5; start+10500 7.5];
+    dY = [start 50; start+3000 20; start+6000 100; start+9000 100];
+    dZ = [start+1500 12; start+4500 5; start+7500 12.5; start+10500 7.5];
 
     U = U0*ones(1,n);
     Dist = D0*ones(1,n);
@@ -114,5 +115,5 @@ function [E] = ZAD1_DMC(D, N, Nu, DZ, lambda, draw)
         xlabel('t[s]')
         ylabel('FD[cm3/s]')
     end
-    E = sum(e.^2)/n;
+    E = sum(e.^2);
 end

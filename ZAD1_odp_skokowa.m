@@ -1,20 +1,22 @@
 function [s,z] = ZAD1_odp_skokowa(Y0, draw)
 
-    n = 500;
-    tau = 50;
-    D0 = 10;
-    U0 = Y0^2-D0;
+    n = 1000;
+    tau = 40;
+    D0 = 12;
+    U0 = 52;
     start = 100;
     C1 = 0.95;
     C2 = 0.95;
-    a1 = 16;
-    a2 = 16;
+    a1 = 17;
+    a2 = 15;
     step = 1;
 
-    h10 = Y0;
-    V10 = C1*h10^2;
+
     h20 = Y0;
-    V20 = V10;
+    V20 = C2 * h20^2;
+    h10 = (a2/a1)^2 * h20;
+    V10 = C1*h10^2;
+
     U = U0*ones(1,n);
     D = D0*ones(1,n);
     U(1,start:n) = U0 + step;
