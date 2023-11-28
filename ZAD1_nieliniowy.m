@@ -6,7 +6,7 @@ C2 = 0.95;
 a1 = 17;
 a2 = 15;
 tau = 40;
-start = 60;
+start = 100;
 
 % punkt pracy
 F10 = 52;
@@ -18,7 +18,7 @@ V10 = C1*h10^2;
 V20 = C2*h20^2;
 
 figure
-title('Przebiegi wyjscia dla skoku wartosci sterowania w chwili 60s.')
+title('Przebiegi wyjscia dla skoku wartosci sterowania w chwili 100.')
 xlabel('czas[t]')
 ylabel('h2[cm]')
 hold on
@@ -39,15 +39,16 @@ for i = 82:-10:22
         h2(1,t) = (V2(1,t)/C2)^0.5;
     end
     plot(start:n,h2(1,start:end))
+    legend('82', '72', '62', '52', '42','32', '22')
 end
-legend('82', '72', '62', '52', '42', '32', '22')
+
 
 figure
-title('Przebiegi wyjscia dla skoku wartosci zaklocenia w chwili 60s.')
+title('Przebiegi wyjscia dla skoku wartosci zaklocenia w chwili 100.')
 xlabel('czas[t]')
 ylabel('h2[cm]')
 hold on
-for i = 16:-2:8
+for i = 18:-2:6
     F1in = F10 * ones(1,n);
     F1 = F10 * ones(1,n);
     FD = FD0 * ones(1,n);
@@ -65,4 +66,4 @@ for i = 16:-2:8
     end
     plot(start:n,h2(1,start:end))
 end
-legend('16', '14', '12', '10', '8')
+legend('18','16', '14', '12', '10', '8','6')

@@ -1,4 +1,4 @@
-function [a, c, hr20] = ZAD2_model_rozmyty(il, draw)
+function [a, c, hr20] = ZAD2_model_rozmyty(il, draw, c)
 
 
     n = 400;
@@ -14,12 +14,11 @@ function [a, c, hr20] = ZAD2_model_rozmyty(il, draw)
 
 
 
-%% zmieniaj ymin i ymax przy zamianie modeli
-
-
     dy = (ymax-ymin)/il;
-    a = 4;
-    c = ymin+dy:dy:ymax-dy;
+    a = 3;
+    if isempty(c)
+        c = ymin+dy:dy:ymax-dy;
+    end
 
     %pkt linearyzacji w kazdym zbiorze rozmytym
     hr20 = ones(1,il);
@@ -51,8 +50,8 @@ function [a, c, hr20] = ZAD2_model_rozmyty(il, draw)
         end
         plot(hr20, ones(1,il), 'ko')
         xlabel('h2')
-        ylabel('przynale¿noœæ')
-        title('Funkcje przynale¿noœci regulatorów lokalnych w regulacji rozmytej wzglêdem wartoœci wyjœcia')
+        ylabel('przynależności')
+        title('Funkcje przynaleznosci modeli lokalnych w regulacji rozmytej względem wartosci wyjścia')
     end
 
 
@@ -72,7 +71,7 @@ function [a, c, hr20] = ZAD2_model_rozmyty(il, draw)
 
     if draw
         figure
-        title('Przebiegi wyjœcia dla skoku wartoœci sterowania w chwili 60s.')
+        title('Przebiegi wyjścia dla skoku wartości sterowania w chwili 100s.')
         xlabel('czas[t]')
         ylabel('h2[cm]')
         hold on
@@ -130,6 +129,7 @@ function [a, c, hr20] = ZAD2_model_rozmyty(il, draw)
             plot(start:n,h2(1,start:end),'b')
             plot(start:n,h2(2,start:end),'m')
             plot(start:n,h2(2+il+1,start:end),'g')
+            legend('m.nlin', 'm.lin', 'm.rozmyty', Location='northwest')
         end
 % 
     end
